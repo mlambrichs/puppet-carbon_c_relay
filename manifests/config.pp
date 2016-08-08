@@ -1,18 +1,24 @@
+# == Class carbon_c_relay::config
 #
 class carbon_c_relay::config (
   $allowed_chars               = $carbon_c_relay::allowed_chars,
   $config_file                 = $carbon_c_relay::config_file,
   $group                       = $carbon_c_relay::group,
+  $interface                   = $carbon_c_relay::interface,
+  $io_timeout                  = $carbon_c_relay::io_timeout,
   $listen                      = $carbon_c_relay::listen,
+  $listen_backlog              = $carbon_c_relay::listen_backlog,
   $log_dir                     = $carbon_c_relay::log_dir,
   $log_file                    = $carbon_c_relay::log_file,
+  $max_stalls                  = $carbon_c_relay::max_stalls,
   $package_name                = $carbon_c_relay::package_name,
-  $replication_factor          = $carbon_c_relay::replication_factor,
   $server_batch_size           = $carbon_c_relay::server_batch_size,
   $server_queue_size           = $carbon_c_relay::server_queue_size,
   $service_name                = $carbon_c_relay::service_name,
   $sorted_matches              = $carbon_c_relay::sorted_matches,
   $sorted_rewrites             = $carbon_c_relay::sorted_rewrites,
+  $statistics_hostname         = $carbon_c_relay::statistics_hostname,
+  $statistics_non_cumulative   = $carbon_c_relay::statistics_non_cumulative,
   $statistics_sending_interval = $carbon_c_relay::statistics_sending_interval,
   $sysconfig_file              = $carbon_c_relay::sysconfig_file,
   $sysconfig_template          = $carbon_c_relay::sysconfig_template,
@@ -27,6 +33,7 @@ class carbon_c_relay::config (
   }
 
   concat { $config_file:
+    warn   => true,
     ensure => present,
     owner  => $user,
     group  => $group,
@@ -34,23 +41,12 @@ class carbon_c_relay::config (
     notify => Service[$service_name]
   }
 
-  ### Set header for config 
-  concat::fragment { 'header':
-    target  => $config_file,
-    order   => '10',
-    content => "### ${config_file}: Managed by Puppet."
-  }
-
-  $cluster_defaults = {
-    replication_factor => $replication_factor
-  }
-
   ### Count the number of clusters and match rules for giving a proper order
   ### to matches and rewrites.
   $nr_of_clusters = count(keys($carbon_c_relay::config_clusters))
   $nr_of_matches  = count(keys($carbon_c_relay::config_matches))
 
-  create_resources( 'carbon_c_relay::config::cluster', $carbon_c_relay::config_clusters, $cluster_defaults )
+  create_resources( 'carbon_c_relay::config::cluster', $carbon_c_relay::config_clusters )
 
   ### Sort match rules
   if $sorted_matches {
