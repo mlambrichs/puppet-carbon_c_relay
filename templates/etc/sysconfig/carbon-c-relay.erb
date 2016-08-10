@@ -24,9 +24,15 @@
 #   -t  config test mode: prints rule matches from input on stdin
 #   -H  hostname: override hostname (used in statistics)
 
-<% if @operatingsystemmajrelease == 6 %><% if @limit_nofile %>ulimit -n <%= @limit_nofile %><% end %><% end -%>
+<% if @operatingsystemmajrelease == '6' %>
+  <%- if @limit_as %>ulimit -v <%= @limit_as %><% end %>
+  <%- if @limit_cpu %>ulimit -t <%= @limit_cpu %><% end %>
+  <%- if @limit_fsize %>ulimit -f <%= @limit_fsize %><% end %>
+  <%- if @limit_nofile %>ulimit -n <%= @limit_nofile %><% end %>
+  <%- if @limit_nproc %>ulimit -u <%= @limit_nproc %><% end %>
+<% end -%>
 
-ARGS=-p <%= @listen -%>
+ARGS="-p <%= @listen -%>
 <% if @interface %> -i <%= @interface %><% end -%>
  -l <%= @log_dir %>/<%= @log_file -%>
 <% if @worker_threads %> -w <%= @worker_threads %><% end -%>
@@ -38,4 +44,4 @@ ARGS=-p <%= @listen -%>
  -T <%= @io_timeout -%>
 <% if @statistics_non_cumulative %> -m<% end -%>
 <% if @allowed_chars %> -c '<%= @allowed_chars %>'<% end -%>
-<% if @statistics_hostname %> -H <%= @statistics_hostname %> <% end %>
+<% if @statistics_hostname %> -H <%= @statistics_hostname %><% end %>"
