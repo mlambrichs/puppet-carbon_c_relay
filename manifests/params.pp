@@ -15,7 +15,7 @@ class carbon_c_relay::params {
   $limit_nofile                = 64000
   $limit_nproc                 = 64000
   $limits_file                 = '/etc/security/limits.d/carbon-c-relay.conf'
-  $limits_file_template        = "carbon_c_relay${limits_file}.erb"
+  $limits_template             = "carbon_c_relay${limits_file}.erb"
   $listen                      = 2003
   $listen_backlog              = 32
   $log_dir                     = '/var/log/carbon-c-relay'
