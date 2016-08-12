@@ -54,7 +54,7 @@ YAML
 ---
 carbon_c_relay::listen_backlog: 64
 carbon_c_relay::limit_nofile: 524288
-carbon_c_relay::package_ensure: '2.1-1.el7'
+carbon_c_relay::package_ensure: '2.1-1.el%{operatingsystemmajrelease}'
 carbon_c_relay::server_queue_size: 10000000
 carbon_c_relay::statistics_non_cumulative: true
 carbon_c_relay::statistics_sending_interval: 10
@@ -62,7 +62,10 @@ carbon_c_relay::statistics_sending_interval: 10
 carbon_c_relay::config_clusters:
   unmatched:
     comments:
-      - 'File cluster to log unmatched metrics'
+      - 'File cluster to log unmatched metrics.'
+      - 'Additional lines of comments'
+      - 'are done like'
+      - 'this...'
     channel: 'file'
     destinations:
       - '/var/log/carbon-c-relay/unmatched.log'
@@ -84,10 +87,13 @@ carbon_c_relay::config_clusters:
       - 'relay6:2003'
 
 carbon_c_relay::config_rewrites:
-  1:
+  1: # if no order key is specified this key is used
     expression: '(^.*$)'
     replacement: 'foo.\1group.bar'
   2:
+    expression: (^foo.+)
+    replacement: 'bar'
+    order: 999 # 999 overwrites 2 but make sure it's a numeric value
     ...
 
 carbon_c_relay::config_matches:
@@ -100,7 +106,7 @@ carbon_c_relay::config_matches:
     clusters:
       - 'blackhole'
     stop: true
-    order: '02'
+    order: 2
 
   whitelist:
     comments:
@@ -113,7 +119,7 @@ carbon_c_relay::config_matches:
     clusters:
       - 'my_cluster'
     stop: true
-    order: '98'
+    order: 98
 
   unmatched:
     comments:
@@ -123,7 +129,7 @@ carbon_c_relay::config_matches:
     clusters:
       - 'unmatched'
     stop: true
-    order: '99'
+    order: 99
 ```
 
 
@@ -136,6 +142,7 @@ To see the inner workings of carbon-c-relay, take a look at
 https://github.com/grobian/carbon-c-relay.git
 
 ## Limitations
+Only tested on EL6/7
 
 ## Development
 
