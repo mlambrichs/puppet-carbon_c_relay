@@ -70,10 +70,9 @@ class carbon_c_relay::config (
                   $nr_of_clusters + $nr_of_matches + 1 )
   } else {
     $rewrites = $carbon_c_relay::config_rewrites
-    $rewrite_defaults = { order => $nr_of_clusters + $nr_of_matches + 1 }
   }
 
-  create_resources('carbon_c_relay::config::rewrite', $rewrites, $rewrite_defaults)
+  create_resources('carbon_c_relay::config::rewrite', $rewrites)
 
   Carbon_c_relay::Config::Cluster<| |> ->
   Carbon_c_relay::Config::Match<| |> ->
