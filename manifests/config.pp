@@ -39,6 +39,7 @@ class carbon_c_relay::config (
 
   concat { $config_file:
     warn   => true,
+    order  => 'numeric',
     ensure => present,
     owner  => $user,
     group  => $group,
