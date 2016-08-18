@@ -1,6 +1,7 @@
 #
 class carbon_c_relay::config (
   $allowed_chars               = $carbon_c_relay::allowed_chars,
+  $carbon_c_relay_version      = $carbon_c_relay::carbon_c_relay_version,
   $carbon_cache_statistics     = $carbon_c_relay::carbon_cache_statistics,
   $config_file                 = $carbon_c_relay::config_file,
   $group                       = $carbon_c_relay::group,
