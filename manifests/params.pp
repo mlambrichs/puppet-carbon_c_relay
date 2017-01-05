@@ -41,10 +41,9 @@ class carbon_c_relay::params {
   $sorted_rewrites             = false
   $statistics_hostname         = undef
   $statistics_sending_interval = 60
-  $sysconfig_template          = "carbon_c_relay/etc/sysconfig/carbon-c-relay.erb"
+  $sysconfig_template          = 'carbon_c_relay/etc/sysconfig/carbon-c-relay.erb'
   $user                        = 'carbon-c-relay'
   $worker_threads              = 4
-  
   case $::osfamily {
     'Debian' : {
       $user_shell = '/usr/sbin/nologin'
@@ -53,7 +52,7 @@ class carbon_c_relay::params {
     }
     'RedHat' : {
       $user_shell = '/sbin/nologin'
-      $sysconfig_file = '/etc/sysconfig/${service_name}'
+      $sysconfig_file = "/etc/sysconfig/${service_name}"
       $bin_path = "/bin/${service_name}"
     }
     default: {
