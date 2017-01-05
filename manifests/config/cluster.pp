@@ -24,6 +24,6 @@ define carbon_c_relay::config::cluster (
   concat::fragment { "cluster-${title}":
     target  => $carbon_c_relay::config_file,
     content => template('carbon_c_relay/config/cluster.erb'),
-    order   => '20',
+    order   => '02',
   }
 }

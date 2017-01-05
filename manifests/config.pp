@@ -25,7 +25,6 @@ class carbon_c_relay::config (
   $user                        = $carbon_c_relay::user,
   $worker_threads              = $carbon_c_relay::worker_threads,
 ) {
-
   file { $sysconfig_file:
     ensure  => file,
     content => template($sysconfig_template),
@@ -40,10 +39,10 @@ class carbon_c_relay::config (
     notify => Service[$service_name]
   }
 
-  ### Set header for config 
+  ### Set header for config
   concat::fragment { 'header':
     target  => $config_file,
-    order   => '10',
+    order   => '01',
     content => "### ${config_file}: Managed by Puppet."
   }
 
@@ -57,7 +56,6 @@ class carbon_c_relay::config (
   $nr_of_matches  = count(keys($carbon_c_relay::config_matches))
 
   create_resources( 'carbon_c_relay::config::cluster', $carbon_c_relay::config_clusters, $cluster_defaults )
-
   ### Sort match rules
   if $sorted_matches {
     $matches = carbon_c_relay_sorted( $carbon_c_relay::config_matches,

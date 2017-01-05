@@ -18,6 +18,8 @@ class carbon_c_relay::service (
   $service_name     = $carbon_c_relay::service_name,
   $service_template = $carbon_c_relay::service_template,
   $user             = $carbon_c_relay::user,
+  $sysconfig_file   = $carbon_c_relay::sysconfig_file,
+  $bin_path         = $carbon_c_relay::bin_path,
 ) {
 
   if ! ($service_ensure in [ 'running', 'stopped' ]) {
