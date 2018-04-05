@@ -14,6 +14,8 @@ group :development do
   gem 'travis',          :require => false
   gem 'travis-lint',     :require => false
   gem 'guard-rake',      :require => false
+  gem 'parallel_tests',  '< 2.10.0',  :require => false if RUBY_VERSION < '2.0.0'
+  gem 'parallel_tests',  :require => false if RUBY_VERSION >= '2.0.0'
   gem 'puppet-strings',  :require => false, :git => 'https://github.com/puppetlabs/puppetlabs-strings.git'
   gem 'redcarpet',       :require => false
   gem 'json',            '1.8.3'

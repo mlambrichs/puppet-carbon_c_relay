@@ -231,9 +231,9 @@ class carbon_c_relay (
     $user,
   )
 
-  anchor { 'carbon_c_relay::begin': } ->
-  class { '::carbon_c_relay::install': } ->
-  class { '::carbon_c_relay::config': } ~>
-  class { '::carbon_c_relay::service': } ->
-  anchor { 'carbon_c_relay::end': }
+  anchor { 'carbon_c_relay::begin': }
+  -> class { '::carbon_c_relay::install': }
+  -> class { '::carbon_c_relay::config': }
+  ~> class { '::carbon_c_relay::service': }
+  -> anchor { 'carbon_c_relay::end': }
 }

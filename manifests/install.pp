@@ -14,8 +14,8 @@ class carbon_c_relay::install (
     } ->
     group { $group:
       ensure => present
-    } ->
-    user { $user:
+    }
+    -> user { $user:
       ensure => present,
       groups => $group,
       shell  => $user_shell,

@@ -10,7 +10,7 @@ class carbon_c_relay::params {
   $init_file                   = '/etc/init.d/carbon-c-relay'
   $init_file_ensure            = 'file'
   $init_template               = "carbon_c_relay${init_file}.erb"
-  $interface                   = 'all'
+  $interface                   = '0.0.0.0'
   $io_timeout                  = 600
   $limit_fsize                 = undef
   $limit_cpu                   = undef
@@ -18,7 +18,7 @@ class carbon_c_relay::params {
   $limit_no_file               = 64000
   $limit_nproc                 = 64000
   $listen                      = 2003
-  $listen_backlog              = 3
+  $listen_backlog              = 32
   $log_dir                     = '/var/log/carbon-c-relay'
   $log_file                    = 'carbon-c-relay.log'
   $max_stalls                  = 4
@@ -33,7 +33,7 @@ class carbon_c_relay::params {
   $server_queue_size           = 25000
   $service_enable              = true
   $service_ensure              = running
-  $service_file                = '/etc/systemd/system/carbon-c-relay.service'
+  $service_file                = '/usr/lib/systemd/system/carbon-c-relay.service'
   $service_manage              = true
   $service_name                = $package_name
   $service_template            = "carbon_c_relay${service_file}.erb"
