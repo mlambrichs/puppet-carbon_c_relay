@@ -13,8 +13,8 @@ define carbon_c_relay::config::cluster (
     validate_string( $file )
   }
 
-  if ! ($channel in ['carbon_ch', 'fnv1a_ch', 'forward', 'file']) {
-    fail("channel '${channel}' is not in ['carbon_ch', 'fnv1a_ch', 'forward', 'file']")
+  if ! ($channel in ['carbon_ch', 'fnv1a_ch', 'forward', 'file', 'any_of']) {
+    fail("channel '${channel}' is not in ['carbon_ch', 'fnv1a_ch', 'forward', 'file', 'any_of']")
   }
 
   unless is_array( $hosts ) {

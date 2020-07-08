@@ -8,7 +8,7 @@ User=<%= @user %>
 Group=<%= @group %>
 EnvironmentFile=/etc/sysconfig/<%= @service_name %>
 ExecStart=/bin/carbon-c-relay -f <%= @config_file %> $ARGS
-ExecReload=/bin/kill -HUP ${MAINPID}
+ExecReload=/bin/kill -s HUP $MAINPID
 Type=simple
 <% if @limit_fsize -%>
 # (file size)
