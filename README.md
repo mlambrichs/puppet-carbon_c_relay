@@ -36,6 +36,28 @@ class { '::carbon_c_relay':
 
 ## Usage
 
+To setup the most basic forwarding ( assuming 3 cache running on the same host ) one can add this to hiera:
+
+```yaml
+carbon_c_relay::carbon_caches:
+  'graphite':
+    hosts:
+      - 'host': 127.0.0.1
+        'port': 2103
+        'alias': a
+      - 'host': 127.0.0.1
+        'port': 2203
+        'alias': b
+      - 'host': 127.0.0.1
+        'port': 2303
+        'alias': b
+carbon_c_relay::config_matches:
+  '*':
+    'cluster_name': graphite
+    'stop': true
+    'order': 30
+```
+
 ## Reference
 
 To see the inner workings of carbon-c-relay, take a look at
